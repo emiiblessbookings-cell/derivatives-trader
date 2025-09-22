@@ -27,7 +27,7 @@ runs:
       npm i wrangler@3.1.0
       cd packages/core
       # Deploy to a branch-specific environment
-      DEPLOYMENT_OUTPUT=$(npx wrangler pages deploy dist/ --project-name=derivatives-trader --branch="preview-$BRANCH_NAME" --compatibility-date=2023-05-18)
+      DEPLOYMENT_OUTPUT=$(npx wrangler pages deploy dist/ --project-name=derivatives-trader --branch="preview-$BRANCH_NAME")
       
       # Extract the URL from the deployment output
       PREVIEW_URL=$(echo "$DEPLOYMENT_OUTPUT" | grep -oP 'https://[^\s]+\.pages\.dev' | head -1)

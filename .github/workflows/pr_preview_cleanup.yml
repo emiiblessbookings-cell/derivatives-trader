@@ -48,7 +48,7 @@ jobs:
         
         # Try to delete the preview deployment
         # Note: This might fail if the deployment doesn't exist, which is okay
-        npx wrangler pages deployment list --project-name=derivatives-trader --compatibility-date=2023-05-18 || true
+        npx wrangler pages deployment list --project-name=derivatives-trader || true
         
         echo "Cleanup initiated for preview branch: $CLEAN_BRANCH_NAME"
         echo "Preview deployments for closed PRs will be automatically cleaned up by Cloudflare after 30 days of inactivity."
