@@ -1,0 +1,44 @@
+name: publish_to_pages_preview
+description: Publish to cloudflare pages (preview)
+inputs:
+  CLOUDFLARE_ACCOUNT_ID:
+    description: 'Cloudflare account id'
+    required: true
+  CLOUDFLARE_API_TOKEN:
+    description: 'Cloudflare token'
+    required: true
+  BRANCH_NAME:
+    description: 'Branch name for preview deployment'
+    required: true
+outputs:
+  preview_url:
+    description: 'Preview URL for the deployment'
+    value: ${{ steps.deploy.outputs.preview_url }}
+runs:
+  using: composite
+  steps:
+  - name: Publish to cloudflare pages (preview)
+    id: deploy
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ inputs.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ inputs.CLOUDFLARE_API_TOKEN }}
+      BRANCH_NAME: ${{ inputs.BRANCH_NAME }}
+    run: |
+      npm i wrangler@3.1.0
+      cd packages/core
+      # Deploy to a branch-specific environment
+      DEPLOYMENT_OUTPUT=$(npx wrangler pages deploy dist/ --project-name=derivatives-trader --branch="preview-$BRANCH_NAME" --compatibility-date=2023-05-18)
+      
+      # Extract the URL from the deployment output
+      PREVIEW_URL=$(echo "$DEPLOYMENT_OUTPUT" | grep -oP 'https://[^\s]+\.pages\.dev' | head -1)
+      
+      # If we can't extract the URL from output, construct it manually
+      if [ -z "$PREVIEW_URL" ]; then
+        # Clean branch name for URL (replace special characters with hyphens)
+        CLEAN_BRANCH_NAME=$(echo "preview-$BRANCH_NAME" | sed 's/[^a-zA-Z0-9]/-/g' | tr '[:upper:]' '[:lower:]')
+        PREVIEW_URL="https://${CLEAN_BRANCH_NAME}.derivatives-trader.pages.dev"
+      fi
+      
+      echo "Preview URL: $PREVIEW_URL"
+      echo "preview_url=$PREVIEW_URL" >> $GITHUB_OUTPUT
+    shell: bash
