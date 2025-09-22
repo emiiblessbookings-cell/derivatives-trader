@@ -68,10 +68,6 @@ jobs:
           
           const commentBody = `🚀 **Preview deployed for branch \`${branchName}\`**
 
-📱 **Preview URL:** ${previewUrl}
-
-This preview will be updated automatically when you push new commits to this PR.
-
 ---
 *Deployed from commit: ${context.payload.pull_request.head.sha.substring(0, 7)}*`;
 
