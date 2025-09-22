@@ -24,8 +24,6 @@ jobs:
           // Comment on PR about cleanup
           const cleanupComment = `🧹 **Preview cleanup completed**
           
-The preview deployment for branch \`${branchName}\` has been cleaned up.
-
 ---
 *Preview was available at: https://preview-${branchName.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase()}.derivatives-trader.pages.dev*`;
 
