@@ -64,17 +64,17 @@ This project uses a monorepo structure managed with npm workspaces. All individu
 
 ### Packages
 
-| Package      | Description                     | Documentation                                                                                                         |
-| ------------ | ------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `Api`        | API client for backend services | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](packages/api/README.md)        |
-| `Api-v2`     | Next generation API client      | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](packages/api-v2/README.md)     |
-| `Components` | Shared UI component library     | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](packages/components/README.md) |
-| `Core`       | Core application framework      | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](packages/core/README.md)       |
-| `Reports`    | Transaction and trading reports | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](packages/reports/README.md)    |
-| `Shared`     | Shared utilities and helpers    | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](packages/shared/README.md)     |
-| `Stores`     | State management stores         | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](packages/stores/README.md)     |
-| `Trader`     | Trading platform interface      | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](packages/trader/README.md)     |
-| `Utils`      | Utility functions               | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](packages/utils/README.md)      |
+| Package      | Description                     | Documentation                                                                                                            |
+| ------------ | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `Api`        | API client for backend services | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](../packages/api/README.md)        |
+| `Api-v2`     | Next generation API client      | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](../packages/api-v2/README.md)     |
+| `Components` | Shared UI component library     | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](../packages/components/README.md) |
+| `Core`       | Core application framework      | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](../packages/core/README.md)       |
+| `Reports`    | Transaction and trading reports | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](../packages/reports/README.md)    |
+| `Shared`     | Shared utilities and helpers    | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](../packages/shared/README.md)     |
+| `Stores`     | State management stores         | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](../packages/stores/README.md)     |
+| `Trader`     | Trading platform interface      | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](../packages/trader/README.md)     |
+| `Utils`      | Utility functions               | [![Docs](https://img.shields.io/badge/API%20Docs-readme-orange.svg?style=flat-square)](../packages/utils/README.md)      |
 
 ## Development Workflow
 
@@ -224,8 +224,6 @@ There are two types of releases:
 
 ## Additional Documentation
 
-- [Stylesheet Guidelines](docs/Stylesheet/README.md) - CSS/SASS code style
-- [JavaScript Guidelines](docs/JavaScript/README.md) - JS/JSX code style
-- [TypeScript Guidelines](docs/Typescript/README.md) - TS/TSX code style
-- [Git Workflow](docs/git/README.md) - Git practices and processes
-- [Dependency Management](docs/Dependencies/README.md) - Working with dependencies
+- [Stylesheet Guidelines](../docs/Stylesheet/README.md) - CSS/SASS code style
+- [JavaScript Guidelines](../docs/JavaScript/README.md) - JS/JSX code style
+- [Git Workflow](../docs/git/README.md) - Git practices and processes
