@@ -14,6 +14,7 @@ import TraderProviders from '../trader-providers';
 
 import ServicesErrorSnackbar from './Components/ServicesErrorSnackbar';
 import Notifications from './Containers/Notifications';
+import { useTokenSync } from './Hooks/useTokenSync';
 import Router from './Routes/router';
 
 import 'Sass/app.scss';
@@ -27,6 +28,9 @@ type Apptypes = {
 
 const App = ({ passthrough }: Apptypes) => {
     const root_store = initStore(passthrough.root_store, passthrough.WS);
+
+    // Initialize token sync hook to handle session token changes across tabs
+    useTokenSync();
 
     React.useEffect(() => {
         return () => root_store.ui.setPromptHandler(false);

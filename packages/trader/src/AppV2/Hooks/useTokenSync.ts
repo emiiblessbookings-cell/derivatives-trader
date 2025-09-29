@@ -1,0 +1,83 @@
+import { useEffect, useRef } from 'react';
+
+/**
+ * Custom hook to sync localStorage changes across tabs
+ * Specifically monitors 'session_token' changes from other tabs and refreshes the page
+ *
+ * How it works:
+ * - The 'storage' event only fires on other tabs/windows when localStorage is modified
+ * - It does NOT fire on the tab that made the change
+ * - This is perfect for detecting session token changes from other tabs
+ * - When another tab changes the session_token, this tab will automatically refresh
+ *
+ * Usage:
+ * - Import and call this hook in your AuthProvider or main App component
+ * - When another tab changes the session_token, this tab will automatically refresh
+ * - Changes made by the current tab will not trigger a refresh
+ */
+export const useTokenSync = () => {
+    const isOwnChange = useRef(false);
+
+    useEffect(() => {
+        const handleStorageChange = (event: StorageEvent) => {
+            // Only handle session_token changes
+            if (event.key !== 'session_token') {
+                return;
+            }
+
+            // Add a small delay to ensure localStorage is fully updated
+            setTimeout(() => {
+                window.location.reload();
+            }, 100);
+        };
+
+        // Listen for localStorage changes from other tabs
+        window.addEventListener('storage', handleStorageChange);
+
+        return () => {
+            window.removeEventListener('storage', handleStorageChange);
+        };
+    }, []);
+
+    /**
+     * Wrapper function to set session_token in localStorage
+     * This prevents the storage event from firing on the current tab
+     *
+     * @param token - The session token to store
+     */
+    const setSessionToken = (token: string) => {
+        isOwnChange.current = true;
+        localStorage.setItem('session_token', token);
+
+        // Reset the flag after a short delay
+        setTimeout(() => {
+            isOwnChange.current = false;
+        }, 50);
+    };
+
+    /**
+     * Wrapper function to remove session_token from localStorage
+     */
+    const removeSessionToken = () => {
+        isOwnChange.current = true;
+        localStorage.removeItem('session_token');
+
+        // Reset the flag after a short delay
+        setTimeout(() => {
+            isOwnChange.current = false;
+        }, 50);
+    };
+
+    /**
+     * Get the current session token from localStorage
+     */
+    const getSessionToken = () => {
+        return localStorage.getItem('session_token');
+    };
+
+    return {
+        setSessionToken,
+        removeSessionToken,
+        getSessionToken,
+    };
+};
