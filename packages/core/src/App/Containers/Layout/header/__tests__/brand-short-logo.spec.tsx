@@ -1,11 +1,11 @@
-import { getBrandUrl } from '@deriv/shared';
+import { getBrandHomeUrl } from '@deriv/shared';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import BrandShortLogo from '../brand-short-logo';
 
 jest.mock('@deriv/shared', () => ({
-    getBrandUrl: jest.fn(() => 'https://home.deriv.com/dashboard'),
+    getBrandHomeUrl: jest.fn(() => 'https://home.deriv.com/dashboard/home'),
 }));
 
 // Mock window.location.href
@@ -40,12 +40,12 @@ describe('BrandShortLogo', () => {
 
         await userEvent.click(clickableDiv);
 
-        expect(getBrandUrl).toHaveBeenCalled();
-        expect(mockLocation.href).toBe('https://home.deriv.com/dashboard');
+        expect(getBrandHomeUrl).toHaveBeenCalled();
+        expect(mockLocation.href).toBe('https://home.deriv.com/dashboard/home');
     });
 
     it('should handle different brand URLs correctly', async () => {
-        (getBrandUrl as jest.Mock).mockReturnValue('https://staging-home.deriv.com/dashboard');
+        (getBrandHomeUrl as jest.Mock).mockReturnValue('https://staging-home.deriv.com/dashboard/home');
 
         render(<BrandShortLogo />);
 
@@ -53,6 +53,6 @@ describe('BrandShortLogo', () => {
 
         await userEvent.click(clickableDiv);
 
-        expect(mockLocation.href).toBe('https://staging-home.deriv.com/dashboard');
+        expect(mockLocation.href).toBe('https://staging-home.deriv.com/dashboard/home');
     });
 });

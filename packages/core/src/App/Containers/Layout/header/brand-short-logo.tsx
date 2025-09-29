@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { BrandDerivLogoCoralIcon } from '@deriv/quill-icons';
-import { getBrandUrl } from '@deriv/shared';
+import { getBrandHomeUrl } from '@deriv/shared';
 
 const BrandShortLogo = () => {
     const handleLogoClick = () => {
-        const brandUrl = getBrandUrl();
+        const brandUrl = getBrandHomeUrl();
         window.location.href = brandUrl;
     };
 
