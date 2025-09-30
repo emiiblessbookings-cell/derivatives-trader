@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
 /**
  * Custom hook to sync localStorage changes across tabs
@@ -11,13 +11,10 @@ import { useEffect, useRef } from 'react';
  * - When another tab changes the session_token, this tab will automatically refresh
  *
  * Usage:
- * - Import and call this hook in your AuthProvider or main App component
+ * - Import and call this hook in your main App component
  * - When another tab changes the session_token, this tab will automatically refresh
- * - Changes made by the current tab will not trigger a refresh
  */
 export const useTokenSync = () => {
-    const isOwnChange = useRef(false);
-
     useEffect(() => {
         const handleStorageChange = (event: StorageEvent) => {
             // Only handle session_token changes
@@ -38,46 +35,4 @@ export const useTokenSync = () => {
             window.removeEventListener('storage', handleStorageChange);
         };
     }, []);
-
-    /**
-     * Wrapper function to set session_token in localStorage
-     * This prevents the storage event from firing on the current tab
-     *
-     * @param token - The session token to store
-     */
-    const setSessionToken = (token: string) => {
-        isOwnChange.current = true;
-        localStorage.setItem('session_token', token);
-
-        // Reset the flag after a short delay
-        setTimeout(() => {
-            isOwnChange.current = false;
-        }, 50);
-    };
-
-    /**
-     * Wrapper function to remove session_token from localStorage
-     */
-    const removeSessionToken = () => {
-        isOwnChange.current = true;
-        localStorage.removeItem('session_token');
-
-        // Reset the flag after a short delay
-        setTimeout(() => {
-            isOwnChange.current = false;
-        }, 50);
-    };
-
-    /**
-     * Get the current session token from localStorage
-     */
-    const getSessionToken = () => {
-        return localStorage.getItem('session_token');
-    };
-
-    return {
-        setSessionToken,
-        removeSessionToken,
-        getSessionToken,
-    };
 };
