@@ -11,7 +11,7 @@
         "build:analyze": "ANALYZE_BUNDLE=true webpack --config \"./build/webpack.config.js\" --mode=production",
         "analyze:bundle": "npm run build:analyze && echo \"Bundle analysis complete! Check bundle-report.html and bundle-stats.json\"",
         "test:eslint": "eslint \"./src/**/*.?(js|jsx|ts|tsx)\"",
-        "prepare": "husky install"
+        "prepare": "if git rev-parse --git-dir >/dev/null 2>&1; then git_root=$(git rev-parse --show-toplevel); npx husky install \"$git_root/packages/trader/.husky\"; else echo 'Skipping husky install: no git repo found'; fi"
     },
     "engines": {
         "node": "20.x"
