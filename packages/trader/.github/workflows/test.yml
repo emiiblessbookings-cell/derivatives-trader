@@ -1,0 +1,45 @@
+name: Deriv App PR Test Workflow
+on:
+  pull_request:
+    branches:
+    - master
+permissions:
+  contents: read
+jobs:
+  build_and_test:
+    name: Build And Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: read
+      actions: write
+    environment: Preview
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Setup Node
+      uses: "./.github/actions/setup_node"
+    - name: Check imports
+      run: npm run check-imports
+    - name: Install dependencies
+      uses: "./.github/actions/npm_install_from_cache"
+    - name: Build
+      uses: "./.github/actions/build"
+      
+    # TypeScript checking
+    - name: Check TypeScript for @deriv/api
+      run: npx tsc --project packages/api/tsconfig.json -noEmit
+    - name: Check TypeScript for @deriv/api-v2
+      run: npx tsc --project packages/api-v2/tsconfig.json -noEmit
+    - name: Check TypeScript for @deriv/utils
+      run: npx tsc --project packages/utils/tsconfig.json -noEmit
+    - name: Check TypeScript for @deriv/stores
+      run: npx tsc --project packages/stores/tsconfig.json -noEmit
+      
+    # Test checking
+    - name: Check tests for @deriv/utils
+      run: bash ./scripts/check-tests.sh packages/utils/src
+      
+    # Run all tests
+    - name: Run tests
+      run: npm run test:ci
